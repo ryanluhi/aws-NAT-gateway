@@ -1,5 +1,4 @@
 # aws-NAT-gateway
-# AWS NAT Gateway with CloudFormation
 
 This project demonstrates how to provide **private internet access** for EC2 instances using a **NAT Gateway** in AWS.  
 The architecture was deployed using a **CloudFormation template** (provided by Adrian Cantrill) and enhanced with manual configuration of the NAT Gateway and routing.
@@ -21,7 +20,11 @@ This document details the steps I followed to deploy a secure VPC architecture u
   - Internet Gateway
   - Route tables (basic)
 
-✅ Screenshot: *CloudFormation Stack Created*  
+-Cloud Formation
+![CloudFormation](/cloudformation.jpeg) 
+
+-Stack
+![Stack Created](/stack.jpeg)
 
 ---
 
@@ -31,36 +34,36 @@ This document details the steps I followed to deploy a secure VPC architecture u
 - Attached an **Elastic IP** to allow outbound internet access.
 - Ensured high availability by placing NAT Gateway in each AZ (best practice).
 
-✅ Screenshot: *NAT Gateway Details*  
+![NAT Gateway Details](/natgw.jpeg) 
 
 ---
 
-## 3. Update Route Tables
+## 3. Create and Update Route Tables
 - Edited the **private subnet route tables**:
   - Added route `0.0.0.0/0` → Target: **NAT Gateway**
 - Confirmed **public subnets** were routing to the Internet Gateway.
 - This ensures:
   - Instances in private subnets → outbound via NAT
   - Instances in public subnets → direct internet access
+-Create a Route Table
+![create a rt](/routetable.jpeg)
 
-✅ Screenshot: *Route Table Configurations*  
+-Route Table Configuration
+![Route Table Configurations](/rtprivateA.jpeg)
+![Route Table Configurations](/rtprivateB.jpeg)
+![Route Table Configurations](/rtprivateC.jpeg)
 
 ---
 
 ## 4. Launch EC2 Instance in Private Subnet
-- Created a **t2.micro** instance in one of the **App private subnets**.
-- Associated it with a **Security Group** allowing outbound traffic.
-- Connected to the instance via a **Bastion Host** in the public subnet (SSH).  
-
-✅ Screenshot: *App Subnet Instance Running*  
+ 
+ ![App Subnet Instance Running](/testinstance.jpeg) 
 
 ---
 
 ## 5. Test Internet Access from Private Instance
-- Logged into the private EC2 instance using the Bastion Host.
+- Logged into the private EC2 instance .
 - Verified outbound internet access by running:
-  ```bash
-  ping 8.8.8.8 -c 4
-  curl https://www.google.com
-  sudo yum update -y   # (Amazon Linux)
-
+![connect to the instance](/testinstance1.jpeg)
+   ping 1.1.1.1
+  ![test](/testinstance2.jpeg)

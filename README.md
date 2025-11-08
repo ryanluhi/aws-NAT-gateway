@@ -8,7 +8,7 @@ This document details the steps I followed to deploy a secure VPC architecture u
 
 
 -Design
-![design](/vpcdesign.jpeg)
+![design](/nat-gwdesign.png)
  
 ---
 
